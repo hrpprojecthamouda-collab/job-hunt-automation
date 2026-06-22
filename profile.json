@@ -84,25 +84,26 @@
       ],
       "seniority": "junior-to-mid for AI-core; mid for tooling/data"
     },
-    "locations": ["Paris", "Île-de-France", "Remote (France)", "TODO confirm remote/hybrid appetite"],
-    "out_of_scope": "TODO — e.g. relocation outside France? full-remote-only? contract vs permanent?"
+    "locations": ["Paris", "Île-de-France"],
+    "out_of_scope": "Roles requiring relocation outside the Paris region are out of scope. Open to both CDI and CDD/freelance — contract type is not a filter."
   },
 
-  "must_haves": [
-    "TODO — non-negotiables, e.g. 'permanent contract (CDI)' or 'salary >= X'",
-    "TODO — e.g. 'reachable from Vanves / acceptable commute'"
-  ],
+  "work_authorization_resolved": "EU citizen — authorized to work in France with no employer sponsorship needed. Treat visa/sponsorship restrictions on a posting as a non-issue, never a blocker.",
 
-  "deal_breakers": [
-    "TODO — e.g. 'requires relocation', 'security clearance / nationality requirement he can't meet', 'pure sales role'"
-  ],
+  "must_haves": [],
+
+  "deal_breakers": [],
+
+  "_filters_note": "Both intentionally empty — no hard filters. Location and everything else are handled as soft signals via fit_score, not hard-skips. The sourcing query is already Paris/IDF-scoped, so location filtering happens upstream. Revisit if too much noise gets through.",
 
   "preferences": {
-    "_note": "Soft signals — nudge fit_score, not hard filters.",
-    "company_size": "TODO — startup / scale-up / large? no preference?",
-    "domain_interest": "TODO — e.g. 'automotive ok, but interested in any sector building real AI products'",
-    "salary_expectation": "TODO — range, used in ranking & to answer screening honestly",
-    "notes": "TODO — anything else that shapes 'a good match'"
+    "_note": "Soft signals — nudge fit_score up or down, never hard-filter.",
+    "work_mode": "Hybrid preferred — nudge hybrid roles up; do not penalize on-site heavily (it's acceptable).",
+    "contract_type": "Open to CDI and CDD/freelance alike — no preference, not a filter.",
+    "company_size": "No strong preference.",
+    "domain_interest": "Automotive/embedded is fine (core track). For bridge track, favor roles building real AI/data products or modern tooling — that's the growth direction.",
+    "salary_expectation": "€45,000–€55,000 gross/year. Soft signal: roles clearly far below this band nudge down; missing salary (common in FR postings) is neutral, not a penalty.",
+    "notes": ""
   },
 
   "cv_source_material": {

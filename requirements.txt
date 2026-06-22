@@ -8,6 +8,7 @@
 PyYAML>=6.0        # read config.yaml (Stage 1)
 requests>=2.32     # HTTP for API/RSS sources (Stage 1: France Travail OAuth2 + search)
 
+anthropic>=0.40      # ranking (Stage 2) + drafting (Stage 4) via the Claude API
+
 # --- added as stages are built ---
 # beautifulsoup4     # HTML parsing for career-page sources (Stage 1)
-# anthropic          # if ranking/drafting go through the API (Stages 2/4; decide per brief §10)
