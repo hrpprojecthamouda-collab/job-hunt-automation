@@ -61,7 +61,7 @@ sources:
   - name: "france_travail"                # ex-Pôle emploi — public API exists
     type: "api"
     reliability: "reliable"
-    enabled: false                        # set true once FRANCE_TRAVAIL_* creds are in .env
+    enabled: true                         # creds now in .env
     notes: "Official FR public-sector jobs API. Good breadth, broad quality."
 
   # --- Tier: reliable (public career pages, no login) ---
