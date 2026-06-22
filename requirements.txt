@@ -1,0 +1,13 @@
+# Python dependencies for the job-hunt pipeline.
+# Install into a venv:
+#   "C:\Users\hrppr\AppData\Local\Programs\Python\Python312\python.exe" -m venv .venv
+#   .venv\Scripts\python -m pip install -r requirements.txt
+#
+# Kept minimal on purpose; add a dep only when a stage actually needs it.
+
+PyYAML>=6.0        # read config.yaml (Stage 1)
+requests>=2.32     # HTTP for API/RSS sources (Stage 1: France Travail OAuth2 + search)
+
+# --- added as stages are built ---
+# beautifulsoup4     # HTML parsing for career-page sources (Stage 1)
+# anthropic          # if ranking/drafting go through the API (Stages 2/4; decide per brief §10)

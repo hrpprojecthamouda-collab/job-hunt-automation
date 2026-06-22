@@ -1,0 +1,188 @@
+{
+  "_README": "Master profile — the keystone input. Stages 1 (sourcing criteria), 2 (ranking rubric) and 4 (CV/cover-letter tailoring) all read this file. Fill in every TODO with real content. Be honest: skills are split into 'proven' (demonstrable on the CV / in interviews today) and 'developing' (actively learning, evidenced but NOT yet expertise). The ranking rubric uses this split so drafts never overclaim. Keep it accurate over impressive — an inflated profile gets filtered out or caught in interviews.",
+
+  "identity": {
+    "full_name": "Mohamed HENDI",
+    "location": "Vanves, Paris, France",
+    "work_authorization": "TODO — e.g. 'EU work permit / French resident' — used to filter roles and answer screening questions honestly",
+    "languages": [
+      { "language": "French", "level": "native" },
+      { "language": "English", "level": "B2/C1 — TODO confirm" }
+    ],
+    "links": {
+      "linkedin": "https://www.linkedin.com/in/mohamed-hendi-profile",
+      "github": "TODO — link to the repo for THIS pipeline + the Flutter/Supabase app (these are the portfolio evidence)",
+      "portfolio": "TODO or null"
+    }
+  },
+
+  "positioning": {
+    "summary": "Integration & validation engineer (~7 yrs, automotive embedded systems, mostly RENAULT) deliberately moving toward AI engineering. Strongest today on systems integration, test strategy, validation and supplier coordination; actively building AI-engineering skills with concrete projects as evidence.",
+    "honesty_note": "Do NOT describe AI engineering or Flutter as established expertise anywhere. They are a credible, evidenced direction — not a track record yet."
+  },
+
+  "skills": {
+    "proven": {
+      "_note": "Demonstrable on the CV and defensible in an interview TODAY. These are the anchor of any 'core'-track application.",
+      "domains": [
+        "Embedded systems integration & validation (automotive)",
+        "Test strategy & execution (HIL benches, lab/factory, functional & non-functional)",
+        "Supplier / partner coordination, international context",
+        "V-cycle and Agile delivery",
+        "Anomaly diagnosis, risk tracking, KPI reporting"
+      ],
+      "technical": [
+        "Network protocols: TCP/IP, Ethernet, CAN",
+        "Tools: Vector CANalyzer, DDT2000, JIRA, DOORS, Confluence, MagicDraw",
+        "Unix/Linux environments",
+        "Python, VBA, C/C++ — used for test automation & KPI tooling"
+      ]
+    },
+    "developing": {
+      "_note": "Actively learning, with evidence — but explicitly NOT expertise. Frame as growth direction. Each item SHOULD point at concrete evidence.",
+      "items": [
+        {
+          "skill": "AI engineering / LLM application building",
+          "status": "learning — AI foundations & fluency in progress",
+          "evidence": "TODO — e.g. 'this job-hunt pipeline (agent orchestration, MCP, SQLite schema, RAG-adjacent scoring)'"
+        },
+        {
+          "skill": "Flutter + Supabase app development",
+          "status": "early — one app built with AI assistance",
+          "evidence": "TODO — link/describe the app; be honest it was AI-assisted"
+        },
+        {
+          "skill": "Python as a software-engineering core (beyond test tooling)",
+          "status": "closing the gap",
+          "evidence": "TODO — e.g. this pipeline's codebase"
+        }
+      ]
+    }
+  },
+
+  "targets": {
+    "_note": "Two tracks, matching the jobs.track column. Stage 2 ranks each job against the rubric for its track.",
+    "core": {
+      "label": "Land-today roles built on proven experience",
+      "titles": [
+        "Ingénieur Intégration et Validation Système",
+        "Integration & Validation Engineer",
+        "Systems / Embedded Test Engineer",
+        "Validation Engineer (embedded / automotive)",
+        "TODO — add/adjust real target titles"
+      ],
+      "seniority": "mid / confirmed (5-8 yrs)"
+    },
+    "bridge": {
+      "label": "Realistic AI-adjacent stretch roles in or near his domain",
+      "titles": [
+        "ML / Data Engineer for testing & validation",
+        "Test Automation Engineer (AI-augmented)",
+        "Tooling / Platform Engineer",
+        "AI Engineer — junior / career-changer-friendly",
+        "TODO — add/adjust"
+      ],
+      "seniority": "junior-to-mid for AI-core; mid for tooling/data"
+    },
+    "locations": ["Paris", "Île-de-France", "Remote (France)", "TODO confirm remote/hybrid appetite"],
+    "out_of_scope": "TODO — e.g. relocation outside France? full-remote-only? contract vs permanent?"
+  },
+
+  "must_haves": [
+    "TODO — non-negotiables, e.g. 'permanent contract (CDI)' or 'salary >= X'",
+    "TODO — e.g. 'reachable from Vanves / acceptable commute'"
+  ],
+
+  "deal_breakers": [
+    "TODO — e.g. 'requires relocation', 'security clearance / nationality requirement he can't meet', 'pure sales role'"
+  ],
+
+  "preferences": {
+    "_note": "Soft signals — nudge fit_score, not hard filters.",
+    "company_size": "TODO — startup / scale-up / large? no preference?",
+    "domain_interest": "TODO — e.g. 'automotive ok, but interested in any sector building real AI products'",
+    "salary_expectation": "TODO — range, used in ranking & to answer screening honestly",
+    "notes": "TODO — anything else that shapes 'a good match'"
+  },
+
+  "cv_source_material": {
+    "_note": "Raw material Stage 4 draws on to tailor a CV variant. Keep this richer than the CV itself — bullet achievements with metrics where possible. Stage 4 SELECTS and rephrases from here; it must not invent.",
+    "experience": [
+      {
+        "role": "Architecte Électrique-Électronique Prototype (Consultant via Bertrandt)",
+        "client": "RENAULT — Prototyping team",
+        "dates": "Mar 2025 – present",
+        "highlights": [
+          "Piloted integration strategy & system test activities on prototype vehicles for critical physical tests (crash, climate, track)",
+          "Integrated complex systems (ADAS, Powertrain); validated E/E architecture coherence ahead of series production",
+          "Built Python/VBA automation tools for KPI reporting",
+          "TODO — add metrics: how many vehicles / ECUs / time saved?"
+        ]
+      },
+      {
+        "role": "Pilote Système — Data Collection & Connected Services (Consultant via Akkodis)",
+        "client": "RENAULT — Connectivity Systems team",
+        "dates": "Apr 2023 – Mar 2025",
+        "highlights": [
+          "Defined & functionally piloted the central data-collection (Upload) system across 3 vehicle ranges",
+          "Coordinated international suppliers on software issues; managed complex system interfaces",
+          "TODO — add metrics / scale"
+        ]
+      },
+      {
+        "role": "Co-Responsable Intégration & Validation Système E/E (Consultant via Akkodis)",
+        "client": "RENAULT — Vehicle Projects team",
+        "dates": "Aug 2022 – Apr 2023",
+        "highlights": [
+          "Operational lead for test lots on the E/E integration platform (HIL bench/lab) for new models",
+          "Early risk/drift identification via rigorous anomaly tracking (project core team)",
+          "TODO — add metrics"
+        ]
+      },
+      {
+        "role": "Ingénieur Test & Validation — Embedded Systems (Consultant via Serma)",
+        "client": "RENAULT — Validation team",
+        "dates": "Mar 2020 – Aug 2022",
+        "highlights": [
+          "System validation of connected services (IVI): TCP/IP, Ethernet, cellular connectivity",
+          "Defined & ran functional/non-functional test plans on factory/lab benches",
+          "Complex log analysis & network diagnosis for critical embedded systems"
+        ]
+      },
+      {
+        "role": "Consultant Fonctionnel SAP (Iliade Consulting)",
+        "client": "ENI DSI — Tester & IS Support",
+        "dates": "Jan 2019 – Mar 2020",
+        "highlights": [
+          "Led user acceptance testing (UAT); coordinated partners for ERP/CRM sync",
+          "Business-needs analysis, anomaly tracking, test-phase reporting"
+        ]
+      }
+    ],
+    "education": [
+      { "year": 2018, "credential": "Engineering Diploma in Advanced Technologies", "institution": "École Nationale des Sciences et Technologies Avancées de Borj-Cedria, Tunisia" },
+      { "year": 2015, "credential": "Classes préparatoires (engineering)", "institution": "Faculté des Sciences de Tunis" }
+    ],
+    "side_projects": [
+      {
+        "name": "Job-hunt automation pipeline (this project)",
+        "what": "Semi-autonomous pipeline: agent orchestration, MCP integration, SQLite schema, RAG-adjacent scoring, human approval gates",
+        "status": "in progress",
+        "why_it_matters": "Portfolio evidence for the AI-engineering pivot — the bridge-track proof point"
+      },
+      {
+        "name": "TODO — Flutter/Supabase app",
+        "what": "TODO — what it does; honest that it was AI-assisted",
+        "status": "TODO",
+        "why_it_matters": "Shows product-engineering exposure"
+      }
+    ]
+  },
+
+  "cover_letter_voice": {
+    "_note": "Guides Stage 4's cover-letter tone so drafts sound like him, not generic.",
+    "tone": "TODO — e.g. 'direct, concrete, no fluff; lead with evidence not adjectives'",
+    "narrative": "TODO — the one-paragraph story of the pivot he wants to tell: validation depth + deliberate, evidenced move into AI",
+    "avoid": ["buzzword salad", "claiming AI expertise he doesn't have", "TODO"]
+  }
+}

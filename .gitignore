@@ -1,0 +1,21 @@
+# The one authoritative store — never commit pipeline state.
+db/pipeline.db
+db/pipeline.db-wal
+db/pipeline.db-shm
+
+# Run logs
+runs/
+
+# Local secrets / API keys
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db

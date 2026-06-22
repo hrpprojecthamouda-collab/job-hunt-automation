@@ -1,0 +1,97 @@
+# Run config — read by Stage 1 (sourcing) for search criteria, and shared with
+# Stage 2 (ranking) for track classification. Search terms here are the *query*;
+# the master profile (profile.json) is the *rubric*. Keep them in sync.
+
+# ---------------------------------------------------------------------------
+# Search criteria — what Stage 1 looks for.
+# ---------------------------------------------------------------------------
+search:
+  locations:
+    - "Paris"
+    - "Île-de-France"
+    # - "Remote France"   # uncomment once remote appetite is confirmed in profile.json
+
+  # Two query sets matching the two tracks (jobs.track). Stage 1 tags each job
+  # with the track of the query set that found it; Stage 2 can refine.
+  tracks:
+    core:                       # land-today roles on proven experience
+      titles:
+        - "Ingénieur Validation"
+        - "Ingénieur Intégration Système"
+        - "Integration Validation Engineer"
+        - "Embedded Test Engineer"
+        - "Systems Validation Engineer"
+      keywords:
+        - "systèmes embarqués"
+        - "validation"
+        - "HIL"
+        - "CAN"
+        - "automotive"
+
+    bridge:                     # realistic AI-adjacent stretch roles
+      titles:
+        - "Test Automation Engineer"
+        - "ML Engineer"
+        - "Data Engineer"
+        - "AI Engineer"          # junior / career-changer-friendly only — Stage 2 filters seniority
+        - "Tooling Engineer"
+      keywords:
+        - "test automation"
+        - "machine learning"
+        - "data pipeline"
+        - "LLM"
+        - "Python"
+
+# ---------------------------------------------------------------------------
+# Sources — where Stage 1 fetches from. Reliability tiers come straight from
+# the brief: API/RSS and public career pages are reliable; login-gated sources
+# (LinkedIn especially) are best-effort and must degrade gracefully.
+#
+# Start with ONE reliable source (build order step 3), prove dedup, then add more.
+# `enabled: false` keeps a source defined but skipped until we wire it up.
+# ---------------------------------------------------------------------------
+sources:
+  # --- Tier: reliable (API / RSS) ---
+  - name: "wttj"                          # Welcome to the Jungle — strong FR/Paris tech coverage
+    type: "api"                           # TODO confirm: API vs scrape, during Stage 1 build
+    reliability: "reliable"
+    enabled: false                        # turn on when implemented & verified
+    notes: "Candidate first source — verify API/RSS availability against current docs before building."
+
+  - name: "france_travail"                # ex-Pôle emploi — public API exists
+    type: "api"
+    reliability: "reliable"
+    enabled: false                        # set true once FRANCE_TRAVAIL_* creds are in .env
+    notes: "Official FR public-sector jobs API. Good breadth, broad quality."
+
+  # --- Tier: reliable (public career pages, no login) ---
+  - name: "company_career_pages"
+    type: "scrape"
+    reliability: "reliable"
+    enabled: false
+    notes: "Per-company public pages for targeted companies. Add specific URLs when known."
+
+  # --- Tier: best-effort (login-gated — DO NOT architect as unattended) ---
+  - name: "linkedin"
+    type: "browser"
+    reliability: "best_effort"
+    enabled: false
+    notes: "Login wall + anti-automation. Best-effort only; must degrade gracefully. Never automate past login/CAPTCHA/submit."
+
+# ---------------------------------------------------------------------------
+# Ranking thresholds — Stage 2 maps fit_score to status using these cutoffs.
+# ---------------------------------------------------------------------------
+ranking:
+  thresholds:
+    pursue: 70        # fit_score >= 70  -> status 'pursue'
+    maybe: 45         # 45..69           -> status 'maybe'
+                      # < 45             -> status 'skip'
+
+# ---------------------------------------------------------------------------
+# Runtime — paths and the LLM backend choice (deferred per brief §10:
+# decide API vs in-session once Stage 1 is proven).
+# ---------------------------------------------------------------------------
+runtime:
+  db_path: "db/pipeline.db"
+  log_dir: "runs"
+  llm_backend: "undecided"    # 'api' | 'in_session' — decide after Stage 1 (brief §10)
