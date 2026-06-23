@@ -44,17 +44,17 @@
         {
           "skill": "AI engineering / LLM application building",
           "status": "learning — AI foundations & fluency in progress",
-          "evidence": "TODO — e.g. 'this job-hunt pipeline (agent orchestration, MCP, SQLite schema, RAG-adjacent scoring)'"
+          "evidence": "This job-hunt pipeline (agent orchestration, MCP, SQLite schema, RAG-adjacent scoring). Certifications: 'Claude Code 101' and 'AI Fluency: Framework & Foundations' (Anthropic Education, 2026)."
         },
         {
-          "skill": "Flutter + Supabase app development",
-          "status": "early — one app built with AI assistance",
-          "evidence": "TODO — link/describe the app; be honest it was AI-assisted"
+          "skill": "Flutter / Dart cross-platform app development",
+          "status": "early — several personal apps built with AI assistance",
+          "evidence": "Home Chore Quest (gamified chore manager — Flutter, Riverpod, Material 3; github.com/hrpprojecthamouda-collab/home-chore-quest); Zehani Physio (physiotherapy practice manager — Flutter/Dart); EventMates (social event planning — Flutter/Dart). AI-assisted builds."
         },
         {
           "skill": "Python as a software-engineering core (beyond test tooling)",
           "status": "closing the gap",
-          "evidence": "TODO — e.g. this pipeline's codebase"
+          "evidence": "This pipeline's codebase (Stages 1-4, lib/ modules, Claude API integration)."
         }
       ]
     }
@@ -161,21 +161,50 @@
       }
     ],
     "education": [
-      { "year": 2018, "credential": "Engineering Diploma in Advanced Technologies", "institution": "École Nationale des Sciences et Technologies Avancées de Borj-Cedria, Tunisia" },
-      { "year": 2015, "credential": "Classes préparatoires (engineering)", "institution": "Faculté des Sciences de Tunis" }
+      { "year": 2018, "credential": "Diplôme d'Ingénieur en Technologies Avancées", "institution": "École Nationale des Sciences et Technologies Avancées de Borj-Cedria, Tunisie" },
+      { "year": 2015, "credential": "Cycle préparatoire aux Études d'Ingénieur", "institution": "Faculté des Sciences de Tunis" },
+      { "year": 2013, "credential": "Baccalauréat Scientifique option Mathématiques", "institution": "" }
+    ],
+    "certifications": [
+      { "year": 2026, "name": "Claude Code 101", "issuer": "Anthropic Education" },
+      { "year": 2026, "name": "AI Fluency: Framework & Foundations", "issuer": "Anthropic Education" }
     ],
     "side_projects": [
       {
-        "name": "Job-hunt automation pipeline (this project)",
-        "what": "Semi-autonomous pipeline: agent orchestration, MCP integration, SQLite schema, RAG-adjacent scoring, human approval gates",
-        "status": "in progress",
-        "why_it_matters": "Portfolio evidence for the AI-engineering pivot — the bridge-track proof point"
+        "name": "Home Chore Quest",
+        "year": 2026,
+        "what": "Application mobile multiplateforme de gestion des tâches ménagères, ludifiée (quêtes, XP, niveaux). Conception architecture, gestion d'état, interface.",
+        "tech": "Flutter, Dart, Riverpod, Material Design 3",
+        "link": "https://github.com/hrpprojecthamouda-collab/home-chore-quest",
+        "status": "built (AI-assisted)",
+        "why_it_matters": "Demonstrable product-engineering exposure; bridge-track evidence"
       },
       {
-        "name": "TODO — Flutter/Supabase app",
-        "what": "TODO — what it does; honest that it was AI-assisted",
-        "status": "TODO",
-        "why_it_matters": "Shows product-engineering exposure"
+        "name": "Zehani Physio",
+        "year": 2026,
+        "what": "Application de gestion pour cabinet de kinésithérapie : dossiers patients, planification de rendez-vous.",
+        "tech": "Flutter, Dart",
+        "link": "https://github.com/hrpprojecthamouda-collab/zehani_physio",
+        "status": "built (AI-assisted)",
+        "why_it_matters": "Real domain app; product exposure"
+      },
+      {
+        "name": "EventMates",
+        "year": 2026,
+        "what": "Application sociale de création et d'organisation d'événements entre amis : planification partagée, invitations, coordination de groupe.",
+        "tech": "Flutter, Dart",
+        "link": null,
+        "status": "in progress (AI-assisted)",
+        "why_it_matters": "Product exposure"
+      },
+      {
+        "name": "Job-hunt automation pipeline (this project)",
+        "year": 2026,
+        "what": "Pipeline semi-autonome : orchestration d'agents, intégration MCP, schéma SQLite, scoring proche du RAG, points de validation humaine.",
+        "tech": "Python, Claude API, SQLite",
+        "link": "https://github.com/hrpprojecthamouda-collab/job-hunt-automation",
+        "status": "in progress",
+        "why_it_matters": "Strongest single AI-engineering portfolio piece for the pivot"
       }
     ]
   },

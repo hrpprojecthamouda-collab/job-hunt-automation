@@ -16,6 +16,12 @@ __pycache__/
 .venv/
 venv/
 
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.synctex.gz
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
