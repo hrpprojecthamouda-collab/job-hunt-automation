@@ -32,15 +32,10 @@ import anthropic
 MODEL = "claude-opus-4-8"
 MAX_TOKENS = 2000
 
-# The 5 experience blocks in the real CV, keyed by a stable id. The generator
-# matches these against section_experience_short.tex to reorder them.
-EXPERIENCE_IDS = {
-    "bertrandt": "Architecte Électrique-Électronique Mulet",   # RENAULT prototypage (Bertrandt)
-    "akkodis_connectivity": "Architecte Électrique-Électronique Système",  # RENAULT connectivité
-    "akkodis_vehicle": "Co-Architecte Électrique-Électronique Véhicule",   # RENAULT projets véhicule
-    "serma": "Ingénieur test et validation",                   # RENAULT validation (Serma)
-    "iliade": "Consultant Fonctionnel SAP",                    # ENI / SAP
-}
+# NOTE: Experiences are kept in the CV's original REVERSE-CHRONOLOGICAL order
+# (most recent first) — the market/ATS expectation. We do NOT reorder by
+# relevance (that reads as a gap or error). Tailoring is via the headline,
+# tagline, and skills emphasis only.
 
 PLAN_SCHEMA = {
     "type": "object",
@@ -57,15 +52,11 @@ PLAN_SCHEMA = {
             "ré-accentué pour CETTE offre. Mêmes faits que le profil réel, aucune "
             "invention. 2-4 phrases.",
         },
-        "experience_order": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "enum": list(EXPERIENCE_IDS.keys()),
-            },
-            "description": "Les 5 ids d'expérience dans l'ordre de présentation "
-            "souhaité (le plus pertinent en premier). Doit contenir les 5 ids, "
-            "sans doublon.",
+        "skills_emphasis": {
+            "type": "string",
+            "description": "1 phrase pour le relecteur : quelles compétences/"
+            "expériences réelles mettre en avant pour ce poste (sans réordonner "
+            "les expériences, qui restent anté-chronologiques).",
         },
         "reviewer_note": {
             "type": "string",
@@ -73,7 +64,7 @@ PLAN_SCHEMA = {
             "mis en avant pour ce poste et pourquoi. Texte simple.",
         },
     },
-    "required": ["tagline", "headline_paragraph", "experience_order", "reviewer_note"],
+    "required": ["tagline", "headline_paragraph", "skills_emphasis", "reviewer_note"],
     "additionalProperties": False,
 }
 
@@ -81,27 +72,20 @@ PLAN_SCHEMA = {
 def build_system_prompt(profile: dict[str, Any]) -> str:
     return f"""Tu adaptes un CV réel à une offre précise, en FRANÇAIS. Tu ne \
 produis PAS de LaTeX : tu produis seulement un petit plan structuré \
-(tagline, paragraphe d'accroche, ordre des expériences, note pour le relecteur).
+(tagline, paragraphe d'accroche, emphase compétences, note pour le relecteur).
 
 # Profil réel du candidat (seule source autorisée)
 {json.dumps(profile, ensure_ascii=False, indent=2)}
 
-# Les 5 expériences réelles (ids stables — tu réordonnes, tu ne réécris pas) :
-- bertrandt : Architecte E/E Mulet, RENAULT prototypage (Mars 2025–présent)
-- akkodis_connectivity : Architecte E/E Système, RENAULT connectivité (2023–2025)
-- akkodis_vehicle : Co-Architecte E/E Véhicule, RENAULT projets (2022–2023)
-- serma : Ingénieur test et validation, RENAULT validation (2020–2022)
-- iliade : Consultant Fonctionnel SAP, ENI (2019–2020)
-
 # RÈGLES
 1. N'INVENTE RIEN. Le paragraphe d'accroche et le tagline doivent refléter \
-uniquement l'expérience réelle ci-dessus. Pas de nouvelle compétence, pas de \
-chiffre inventé.
+uniquement l'expérience réelle du profil ci-dessus. Pas de nouvelle compétence, \
+pas de chiffre inventé.
 2. Respecte la distinction proven/developing : l'IA et Flutter sont en \
 apprentissage, pas une expertise. Ne les présente pas comme une expertise.
-3. experience_order doit contenir les 5 ids, l'ordre reflétant la pertinence \
-pour CETTE offre (le plus pertinent d'abord). Garde un ordre globalement \
-chronologique si la pertinence est équivalente.
+3. NE RÉORDONNE PAS les expériences. Elles restent en ordre anté-chronologique \
+(la plus récente d'abord) — c'est l'attendu du marché et des ATS. L'adaptation \
+se fait uniquement via l'accroche, le tagline et l'emphase des compétences.
 4. Le tagline et l'accroche s'adaptent au poste, mais restent crédibles et sobres."""
 
 
@@ -126,7 +110,8 @@ LIEU : {job.get('location')}
 DESCRIPTION :
 {jd}
 
-Produis le plan structuré (tagline, accroche, ordre des 5 expériences, note relecteur)."""
+Produis le plan structuré (tagline, accroche, emphase compétences, note relecteur).
+Rappel : NE réordonne PAS les expériences."""
     response = client.messages.create(
         model=MODEL,
         max_tokens=MAX_TOKENS,
@@ -135,14 +120,7 @@ Produis le plan structuré (tagline, accroche, ordre des 5 expériences, note re
         messages=[{"role": "user", "content": user}],
     )
     text = next(b.text for b in response.content if b.type == "text")
-    plan = json.loads(text)
-    # Defensive: ensure all 5 ids present exactly once (LLM could slip).
-    order = [i for i in plan["experience_order"] if i in EXPERIENCE_IDS]
-    for i in EXPERIENCE_IDS:
-        if i not in order:
-            order.append(i)
-    plan["experience_order"] = order[:5]
-    return plan
+    return json.loads(text)
 
 
 # --- LaTeX rendering (no LLM; pure string ops on the user's real files) -------
@@ -157,28 +135,6 @@ def _tex_escape(text: str) -> str:
     return "".join(repl.get(c, c) for c in text)
 
 
-def _split_experience_blocks(experience_tex: str) -> tuple[str, dict[str, str], str]:
-    """Split section_experience_short.tex into (header, {id: block}, footer).
-
-    Blocks are separated by \\emptySeparator. We match each block to an id by
-    looking for its title string (from EXPERIENCE_IDS).
-    """
-    begin = experience_tex.index(r"\begin{experiences}") + len(r"\begin{experiences}")
-    end = experience_tex.index(r"\end{experiences}")
-    header = experience_tex[:begin]
-    footer = experience_tex[end:]
-    body = experience_tex[begin:end]
-
-    raw_blocks = [b for b in body.split(r"\emptySeparator")]
-    id_to_block: dict[str, str] = {}
-    for blk in raw_blocks:
-        for eid, title in EXPERIENCE_IDS.items():
-            if title in blk:
-                id_to_block[eid] = blk.strip("\n")
-                break
-    return header, id_to_block, footer
-
-
 def render_cv_folder(
     cv_src: Path,
     out_dir: Path,
@@ -187,8 +143,9 @@ def render_cv_folder(
 ) -> None:
     """Copy the real cv/ template to out_dir and apply the tailoring plan.
 
-    Only section_headline.tex, the tagline in cv.tex, and the experience order
-    in section_experience_short.tex are changed. Everything else is verbatim.
+    Only section_headline.tex and the tagline in cv.tex are changed. Everything
+    else — including the experience section (kept reverse-chronological), skills,
+    projects, certifications — is the user's verbatim cv/ file.
     """
     if out_dir.exists():
         shutil.rmtree(out_dir)
@@ -210,28 +167,19 @@ def render_cv_folder(
                     r"\\tagline{" + _tex_escape(plan["tagline"]) + "}", cv_tex, count=1)
     cv_tex_path.write_text(cv_tex, encoding="utf-8")
 
-    # 3) Reorder experiences
-    exp_path = out_dir / "section_experience_short.tex"
-    exp_tex = exp_path.read_text(encoding="utf-8")
-    header, id_to_block, footer = _split_experience_blocks(exp_tex)
-    ordered = [id_to_block[i] for i in plan["experience_order"] if i in id_to_block]
-    # keep any block that somehow wasn't matched, appended in original order
-    for eid, blk in id_to_block.items():
-        if blk not in ordered:
-            ordered.append(blk)
-    new_body = ("\n  \\emptySeparator\n").join(ordered)
-    exp_path.write_text(header + "\n  " + new_body + "\n" + footer, encoding="utf-8")
+    # 3) Experience section is left VERBATIM (reverse-chronological, as in cv/).
+    #    No reordering — that's the market/ATS expectation.
 
     # 4) Drop a reviewer note (not compiled — for the human)
     (out_dir / "_TAILORING_NOTE.txt").write_text(
         f"Role: {job.get('title')} @ {job.get('company_name')} "
         f"(score {job.get('fit_score')})\n\n"
         f"Tagline: {plan['tagline']}\n\n"
-        f"Experience order: {' > '.join(plan['experience_order'])}\n\n"
+        f"Skills to emphasize: {plan.get('skills_emphasis', '')}\n\n"
         f"Reviewer note: {plan['reviewer_note']}\n\n"
-        "This CV uses your real cv/ template. Only the headline, tagline, and "
-        "experience ORDER were tailored. Skills, projects, certifications, "
-        "education, and languages are your verbatim files. Compile cv.tex with "
-        "LuaLaTeX (as the template requires).\n",
+        "This CV uses your real cv/ template. Only the headline and tagline were "
+        "tailored to the role. Experiences stay reverse-chronological (most "
+        "recent first); skills, projects, certifications, education, and "
+        "languages are your verbatim cv/ files. Compile cv.tex with LuaLaTeX.\n",
         encoding="utf-8",
     )

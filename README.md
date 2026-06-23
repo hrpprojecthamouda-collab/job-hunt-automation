@@ -52,14 +52,27 @@ claim expertise from the proven set.
 ```
 ├── profile.json            # master profile — the keystone input (stages 1,2,4 read it)
 ├── config.yaml             # search criteria, sources, ranking thresholds
+├── cv/                     # the user's real YAAC LaTeX CV (source of truth for 4b)
 ├── db/schema.sql           # 7 tables (jobs, companies, contacts, applications, drafts, outreach, run_log)
 ├── lib/
 │   ├── db.py               # connection + query helpers (FK enforcement, WAL)
 │   ├── dedup.py            # two-part dedup: hard key (source:id) + soft fingerprint
-│   └── sources/            # one adapter module per source
+│   ├── ranker.py           # Stage 2 scoring (Haiku, per-track rubric, structured output)
+│   ├── drafter.py          # Stage 4 CV/cover-letter drafting (Opus, no-invention rule)
+│   ├── latex_cv.py         # Stage 4b LaTeX CV tailoring (headline/tagline only)
+│   └── sources/            # one adapter module per source (france_travail.py)
 └── stages/
-    └── 01_source.py        # Stage 1 — sourcing & dedup (more stages added incrementally)
+    ├── 01_source.py        # Stage 1 — sourcing & dedup            (autonomous)
+    ├── 02_rank.py          # Stage 2 — LLM ranking, per-track       (autonomous)
+    ├── 03_enrich.py        # Stage 3 — company enrichment           (autonomous)
+    ├── 04_draft.py         # Stage 4 — CV + cover-letter drafts     (GATED, needs_review)
+    ├── 04b_latex_cv.py     # Stage 4b — tailored LaTeX CV per role  (GATED)
+    └── 05a_track.py        # Stage 5a — application tracking        (human-driven)
 ```
+
+Generated artifacts (gitignored, live in `runs/`):
+- `runs/drafts/*.md` — cover letters + Markdown CV drafts (readable)
+- `runs/cv/<role>/` — tailored LaTeX CV projects (compile `cv.tex` → PDF)
 
 ## Setup
 
@@ -74,16 +87,36 @@ python -m venv .venv
 # 3. Add API credentials (France Travail — register at https://francetravail.io/inscription)
 copy .env.example .env        # then fill in the credentials
 
-# 4. Run Stage 1
-.venv\Scripts\python stages\01_source.py --dry-run   # fetch + report, no writes
-.venv\Scripts\python stages\01_source.py             # fetch + persist
+# 4. Run the pipeline, stage by stage
+.venv\Scripts\python stages\01_source.py             # source new jobs
+.venv\Scripts\python stages\02_rank.py               # rank against the profile
+.venv\Scripts\python stages\03_enrich.py             # enrich pursue companies
+.venv\Scripts\python stages\04_draft.py              # draft CV + cover letter (gated)
+.venv\Scripts\python stages\04_draft.py --export     # export drafts to runs/drafts/
+.venv\Scripts\python stages\04b_latex_cv.py          # tailored LaTeX CVs to runs/cv/
+
+# Track applications (Stage 5a)
+.venv\Scripts\python stages\05a_track.py --applied 3 --date 2026-06-22
+.venv\Scripts\python stages\05a_track.py --advance 3 --stage screening --follow-up 2026-06-30
+.venv\Scripts\python stages\05a_track.py --show      # your job-hunt dashboard
 ```
 
 ## Status
 
-Built and verified: schema + DB helpers, master profile template, config, and
-Stage 1 (sourcing) with the France Travail adapter, two-part dedup, and
-graceful per-source degradation. Stages 2–5 are in progress, built in order.
+Built and verified end-to-end against live data:
+
+| Stage | What | Mode |
+|------|------|------|
+| 1 — Sourcing | France Travail API, two-part dedup, graceful degradation | autonomous |
+| 2 — Ranking | LLM scoring (Haiku), per-track rubric, structured output | autonomous |
+| 3 — Enrichment | company research for the pursue set | autonomous |
+| 4 — Drafts | CV + cover letter (Opus), strict no-invention rule | **gated** (needs_review) |
+| 4b — LaTeX CV | tailored copies of the real `cv/` template, per role | **gated** |
+| 5a — Tracking | application stage tracker (the DB-backed dashboard) | human-driven |
+
+Stage 5b (outreach drafting) is intentionally deferred until there are real
+contacts and application state to trigger it. Scheduling (Phase 2) and the
+review cockpit remain future work.
 
 ## Build order
 

@@ -94,7 +94,7 @@ def run(job_id: int | None = None) -> int:
             print(f"    [error] {type(exc).__name__}: {exc}")
             continue
         made += 1
-        print(f"    -> {out_dir}  (order: {' > '.join(plan['experience_order'])})")
+        print(f"    -> {out_dir}  (tagline: {plan['tagline']})")
 
     with connect() as conn:
         execute(conn, """INSERT INTO run_log (stage, status, rows_updated, message, started_at)
