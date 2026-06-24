@@ -82,8 +82,13 @@ given proven experience PLUS developing skills as evidence of direction. A \
 junior/career-changer-friendly AI role the candidate could plausibly get scores \
 higher than a senior AI role requiring years of ML in production (which should \
 score low — it's not reachable yet).
-- Honor must-haves and deal-breakers if present in the profile. (Currently both \
-are empty — no hard filters; reflect location/fit softly in the score.)
+- DEAL-BREAKERS ARE HARD EXCLUSIONS. If the job matches ANY deal_breaker in the \
+profile, you MUST set fit_score below 45 (status 'skip'), no matter how well it \
+fits otherwise. Apply them with judgment — match the INTENT (e.g. a "sécurité SI" \
+or "ingénieur système & réseau" IT-ops role is excluded even if its title says \
+"Ingénieur Systèmes"; a "Senior Data Engineer" is excluded as a senior AI-ML \
+role). When you skip for a deal-breaker, say which one in the rationale. \
+Must-haves (if any) are likewise hard requirements. Location is a soft signal.
 - Score bands map to status downstream: >= {thresholds['pursue']} = pursue, \
 {thresholds['maybe']}-{thresholds['pursue'] - 1} = maybe, < {thresholds['maybe']} = skip. \
 Calibrate so a genuinely promising, realistic role lands in 'pursue' and a \

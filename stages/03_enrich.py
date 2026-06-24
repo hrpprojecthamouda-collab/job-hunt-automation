@@ -65,6 +65,38 @@ ENRICHMENTS = [
                  "Mohamed's band). Domain is rail, not automotive — transferable V-cycle "
                  "validation discipline; railway signaling is the ramp-up gap.",
     },
+    {
+        "job_ids": [209],
+        "name": "TerX",
+        "funding_stage": "private (engineering-services consultancy / ESN)",
+        "size": "~160 collaborateurs; €13.5M revenue (2025); founded 2018",
+        "tech_stack": "Conseil en ingénierie & mise à disposition de compétences "
+                      "techniques pour l'industrie. This role: étude faisceau électrique/"
+                      "électronique — but the project domain is SPATIAL (lanceur, "
+                      "architecture globale), not automotive.",
+        "recent_news": "Growing French engineering-services firm; positions itself around "
+                       "industrial autonomy for France/Europe.",
+        "website": "https://www.terx.fr",
+        "notes": "ESN consultancy — structurally like Mohamed's past employers "
+                 "(Bertrandt/Akkodis/Serma). Strong fit on E/E + harness + integration. "
+                 "GAP: domain is space/aerospace, not automotive. NOTE: the France Travail "
+                 "posting (3832490) returned 404 — likely expired; verify before applying.",
+    },
+    {
+        "job_ids": [157],
+        "name": "AI voice-agent startup (via TalenX)",
+        "funding_stage": "seed — €1M raised",
+        "size": "startup in strong growth; 30+ major client accounts",
+        "tech_stack": "Generative-AI voice agents for automotive distribution. Role: "
+                      "client implementation/deployment, business-process analysis, "
+                      "platform configuration, SaaS/cloud integration. Python, NLP, SaaS.",
+        "recent_news": "Post-€1M raise, expanding the Delivery team; reports to CTO/COO.",
+        "website": None,
+        "notes": "BRIDGE-track. Recruiter = TalenX. More a SaaS-deployment/integration "
+                 "role than AI-building — Mohamed's integration + supplier-coordination + "
+                 "Python is genuinely relevant. GAP: wants 2+ yrs SaaS deployment he "
+                 "doesn't directly have. CDI, Paris 18e. Realistic stretch, not a sure fit.",
+    },
 ]
 
 

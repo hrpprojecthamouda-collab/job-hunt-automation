@@ -18,15 +18,29 @@ search:
       titles:
         - "Ingénieur Validation"
         - "Ingénieur Intégration Système"
+        - "Ingénieur Test et Validation"
+        - "Ingénieur Systèmes Embarqués"
+        - "Ingénieur Système Électronique"
+        - "Ingénieur Électronique"
+        - "Ingénieur Automobile"
+        - "Ingénieur Ferroviaire"
+        - "Architecte Électrique Électronique"
+        - "Ingénieur Vérification Validation"
+        - "Ingénieur Essais"
+        - "Ingénieur Systèmes"
         - "Integration Validation Engineer"
         - "Embedded Test Engineer"
         - "Systems Validation Engineer"
+        - "V&V Engineer"
       keywords:
         - "systèmes embarqués"
         - "validation"
+        - "intégration système"
         - "HIL"
         - "CAN"
+        - "cycle en V"
         - "automotive"
+        - "E/E"
 
     bridge:                     # realistic AI-adjacent stretch roles
       titles:

@@ -92,9 +92,12 @@
 
   "must_haves": [],
 
-  "deal_breakers": [],
+  "deal_breakers": [
+    "Pure IT infrastructure / sysadmin / network / security roles (e.g. ingénieur système & réseau, administrateur, Citrix/firewall/Active Directory/cloud-ops, ingénieur sécurité SI, DevOps/SecOps, support poste de travail/workplace). These concern IT operations, NOT embedded/automotive systems engineering — auto-skip even when the title contains 'Ingénieur Systèmes'.",
+    "Senior / Lead / Principal / Architect AI-ML or Data roles requiring years of production ML/data engineering (e.g. Lead/Senior/Tech Lead Data Engineer, Senior AI Engineer, ML Platform Architect). Out of reach given AI/data is a developing — not proven — skill. Auto-skip. (Junior / career-changer-friendly AI-adjacent roles are NOT excluded — those stay in the bridge track.)"
+  ],
 
-  "_filters_note": "Both intentionally empty — no hard filters. Location and everything else are handled as soft signals via fit_score, not hard-skips. The sourcing query is already Paris/IDF-scoped, so location filtering happens upstream. Revisit if too much noise gets through.",
+  "_filters_note": "deal_breakers are HARD exclusions: the ranker forces fit_score < 45 (status 'skip') for any job matching one, regardless of other fit. Two rules active: (1) pure IT/sysadmin/network/security ops roles, (2) senior/lead AI-ML/data roles. Strategy unchanged: embedded/validation is the priority; junior AI-adjacent roles remain low-scored stretches, not excluded. must_haves stays empty (no positive hard requirement); location is soft (sourcing is already Paris/IDF-scoped).",
 
   "preferences": {
     "_note": "Soft signals — nudge fit_score up or down, never hard-filter.",
